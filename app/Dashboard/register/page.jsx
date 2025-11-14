@@ -22,6 +22,14 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validación básica
+    for (let key in form) {
+      if (!form[key]) {
+        setMsg("⚠️ Por favor completa todos los campos");
+        return;
+      }
+    }
+
     if (form.password !== form.repetir) {
       setMsg("⚠️ Las contraseñas no coinciden");
       return;
@@ -34,7 +42,7 @@ export default function Register() {
     });
 
     const data = await res.json();
-    setMsg(data.message);
+    setMsg(data.message || "Usuario registrado correctamente ✔️");
   };
 
   return (
@@ -54,11 +62,12 @@ export default function Register() {
           <p className="text-gray-600">Regístrate para continuar</p>
         </div>
 
-
+        {/* Email */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Correo electrónico</label>
           <input
             name="email"
+            required
             type="email"
             placeholder="correo@ejemplo.com"
             onChange={handleChange}
@@ -66,10 +75,12 @@ export default function Register() {
           />
         </div>
 
+        {/* Cedula */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Cédula</label>
           <input
             name="cedula"
+            required
             type="text"
             placeholder="Tu número de cédula"
             onChange={handleChange}
@@ -77,20 +88,24 @@ export default function Register() {
           />
         </div>
 
+        {/* Fecha */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Fecha de nacimiento</label>
           <input
             name="fecha"
+            required
             type="date"
             onChange={handleChange}
             className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
           />
         </div>
 
+        {/* Telefono */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Teléfono</label>
           <input
             name="telefono"
+            required
             type="text"
             placeholder="Tu número de teléfono"
             onChange={handleChange}
@@ -98,10 +113,12 @@ export default function Register() {
           />
         </div>
 
+        {/* Genero */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Género</label>
           <select
             name="genero"
+            required
             onChange={handleChange}
             className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
           >
@@ -112,10 +129,12 @@ export default function Register() {
           </select>
         </div>
 
+        {/* Contraseña */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Contraseña</label>
           <input
             name="password"
+            required
             type="password"
             placeholder="Mínimo 6 caracteres"
             onChange={handleChange}
@@ -123,10 +142,12 @@ export default function Register() {
           />
         </div>
 
+        {/* Repetir contraseña */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Repetir contraseña</label>
           <input
             name="repetir"
+            required
             type="password"
             placeholder="Repite tu contraseña"
             onChange={handleChange}
@@ -140,7 +161,7 @@ export default function Register() {
 
         <button
           type="button"
-          onClick={() => window.location.href = "/login"}
+          onClick={() => window.location.href = "/Dashboard/login"}
           className="w-full h-11 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
         >
           Volver al login
