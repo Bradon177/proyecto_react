@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+
+  const router = useRouter();
+
   const [form, setForm] = useState({
     email: "",
     cedula: "",
@@ -9,7 +13,7 @@ export default function Register() {
     telefono: "",
     genero: "",
     password: "",
-    repetir: "",
+    repetir: ""
   });
 
   const [msg, setMsg] = useState("");
@@ -35,21 +39,29 @@ export default function Register() {
 
       const data = await res.json();
       setMsg(data.message);
+
+      if (data.status === "ok") {
+        // Redirigir al login si el registro es exitoso
+        setTimeout(() => {
+          router.push("/Dashboard/login");
+        }, 1500);
+      }
+
     } catch (error) {
-      console.error(error);
-      setMsg("Error al conectar con el servidor");
+      setMsg("⚠️ Error enviando datos al servidor");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
-        
-        {/* HEADER */}
+
         <div className="text-center space-y-2">
           <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl mx-auto flex items-center justify-center">
             <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                d="M5 13l4 4L19 7" />
             </svg>
           </div>
 
@@ -57,7 +69,7 @@ export default function Register() {
           <p className="text-gray-600">Regístrate para continuar</p>
         </div>
 
-        {/* EMAIL */}
+
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Correo electrónico</label>
           <input
@@ -69,7 +81,6 @@ export default function Register() {
           />
         </div>
 
-        {/* CEDULA */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Cédula</label>
           <input
@@ -81,7 +92,6 @@ export default function Register() {
           />
         </div>
 
-        {/* FECHA */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Fecha de nacimiento</label>
           <input
@@ -92,7 +102,6 @@ export default function Register() {
           />
         </div>
 
-        {/* TELEFONO */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Teléfono</label>
           <input
@@ -104,7 +113,6 @@ export default function Register() {
           />
         </div>
 
-        {/* GENERO */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Género</label>
           <select
@@ -119,7 +127,6 @@ export default function Register() {
           </select>
         </div>
 
-        {/* PASSWORD */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Contraseña</label>
           <input
@@ -131,7 +138,6 @@ export default function Register() {
           />
         </div>
 
-        {/* REPETIR */}
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Repetir contraseña</label>
           <input
@@ -143,21 +149,18 @@ export default function Register() {
           />
         </div>
 
-        {/* BOTÓN REGISTRO */}
         <button className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-md transition">
           Registrarse
         </button>
 
-        {/* VOLVER LOGIN */}
         <button
           type="button"
-          onClick={() => (window.location.href = "/login")}
+          onClick={() => router.push("/Dashboard/login")}
           className="w-full h-11 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
         >
           Volver al login
         </button>
 
-        {/* MENSAJE */}
         {msg && <p className="text-center text-red-600">{msg}</p>}
       </form>
     </div>
