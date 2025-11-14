@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export default function page() {
 
   const router = useRouter();
 
