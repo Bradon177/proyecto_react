@@ -72,7 +72,9 @@ export default function Register() {
             type="email"
             placeholder="correo@ejemplo.com"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 
@@ -83,7 +85,9 @@ export default function Register() {
             type="text"
             placeholder="Tu número de cédula"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 
@@ -93,7 +97,9 @@ export default function Register() {
             name="fecha"
             type="date"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 
@@ -104,7 +110,9 @@ export default function Register() {
             type="text"
             placeholder="Tu número de teléfono"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 
@@ -129,7 +137,9 @@ export default function Register() {
             type="password"
             placeholder="Mínimo 6 caracteres"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+            className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 
@@ -140,7 +150,9 @@ export default function Register() {
             type="password"
             placeholder="Repite tu contraseña"
             onChange={handleChange}
-            className="w-full h-11 px-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none"
+             className="w-full h-11 px-3 rounded-lg border border-gray-300 
+            focus:ring-2 focus:ring-blue-600 focus:outline-none 
+            placeholder-gray-400 text-black"
           />
         </div>
 

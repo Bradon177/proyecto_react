@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
 
   const router = useRouter();
 
@@ -12,10 +12,6 @@ export default function page() {
 
     router.push("/register")
 
-  }
-  const handleRecuperar = () =>{
-
-    router.push("/recuperar")   
   }
 
   return (
@@ -119,7 +115,7 @@ export default function page() {
         {/* Recuperar contraseña */}
         <p className="text-center text-gray-600 text-sm">
           ¿Olvidaste tu contraseña?
-          <a onClick={handleRecuperar} className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+          <a href="/recuperar" className="text-blue-600 hover:text-blue-700 font-medium ml-1">
             Recuperarla
           </a>
         </p>
