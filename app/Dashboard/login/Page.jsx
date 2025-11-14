@@ -13,6 +13,10 @@ export default function Page() {
     router.push("/register")
 
   }
+  const handleRecuperar = () =>{
+
+    router.push("/recuperar") 
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -115,9 +119,9 @@ export default function Page() {
         {/* Recuperar contraseña */}
         <p className="text-center text-gray-600 text-sm">
           ¿Olvidaste tu contraseña?
-          <a href="/recuperar" className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+          <button onClick={handleRecuperar} className="text-blue-600 hover:text-blue-700 font-medium ml-1">
             Recuperarla
-          </a>
+          </button>
         </p>
 
       </form>

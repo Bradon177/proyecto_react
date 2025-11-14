@@ -48,9 +48,9 @@ export default function Page() {
 
         {/* Volver */}
         <p className="text-center text-gray-600 text-sm pt-4 border-t">
-          <a onClick={handleClick} className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+          <button onClick={handleClick} className="text-blue-600 hover:text-blue-700 font-medium ml-1">
             Volver al inicio de sesión
-          </a>
+          </button>
         </p>
 
         
