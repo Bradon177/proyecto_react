@@ -1,8 +1,18 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+
+  const router = useRouter();
+
   const [show, setShow] = useState(false);
+
+  const handleClick = () =>{
+
+    router.push("/register")
+
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -98,7 +108,7 @@ export default function Page() {
         {/* Registro */}
         <p className="text-center text-gray-600 text-sm pt-4 border-t">
           ¿No tienes cuenta?
-          <a href="#" className="text-blue-600 hover:text-blue-700 font-medium ml-1">Regístrate ahora</a>
+          <a href="#" className="text-blue-600 hover:text-blue-700 font-medium ml-1" onClick={handleClick} >Regístrate ahora</a>
         </p>
 
       </form>
