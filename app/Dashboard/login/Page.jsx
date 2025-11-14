@@ -82,16 +82,18 @@ export default function Page() {
         {/* Google */}
         <button
           type="button"
-          className="w-full h-11 border border-gray-300 rounded-lg flex items-center justify-center font-medium text-gray-700 hover:bg-gray-50 transition"
+          className="w-full h-11 border border-gray-300 rounded-lg flex items-center justify-center gap-2 font-medium text-gray-700 hover:bg-gray-50 transition"
         >
-          <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92..." />
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57..." />
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s..." />
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15..." />
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#EA4335" d="M12 5.3c1.63 0 3.09.56 4.24 1.64l3.18-3.18C17.46 1.99 14.99.9 12 .9 7.7.9 3.99 3.38 2.18 6.98l3.67 2.85C6.72 7.23 9.15 5.3 12 5.3z" />
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.91c-.25 1.36-1.03 2.53-2.21 3.31l3.57 2.77c2.08-1.92 3.29-4.74 3.29-8.09z" />
+            <path fill="#34A853" d="M12 23c2.97 0 5.47-.98 7.29-2.67l-3.57-2.77c-.99.67-2.24 1.07-3.72 1.07-2.86 0-5.29-1.93-6.16-4.54H2.18v2.85C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05" d="M5.85 14.09c-.23-.66-.36-1.36-.36-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.67-2.84z" />
           </svg>
+
           Iniciar con Google
         </button>
+
 
         {/* Registro */}
         <p className="text-center text-gray-600 text-sm pt-4 border-t">
