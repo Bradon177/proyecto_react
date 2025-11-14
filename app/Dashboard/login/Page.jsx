@@ -111,6 +111,15 @@ export default function Page() {
           <a href="#" className="text-blue-600 hover:text-blue-700 font-medium ml-1" onClick={handleClick} >Regístrate ahora</a>
         </p>
 
+
+        {/* Recuperar contraseña */}
+        <p className="text-center text-gray-600 text-sm">
+          ¿Olvidaste tu contraseña?
+          <a href="/recuperar" className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+            Recuperarla
+          </a>
+        </p>
+
       </form>
     </div>
   );
