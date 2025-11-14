@@ -58,12 +58,7 @@ export default function Register() {
       <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
 
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl mx-auto flex items-center justify-center">
-            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
+         
 
           <h2 className="text-2xl font-semibold text-gray-900">Crear cuenta</h2>
           <p className="text-gray-600">Regístrate para continuar</p>
@@ -155,7 +150,7 @@ export default function Register() {
 
         <button
           type="button"
-          onClick={() => router.push("/Dashboard/login")}
+          onClick={() => router.push("/dashboard/login")}
           className="w-full h-11 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
         >
           Volver al login
