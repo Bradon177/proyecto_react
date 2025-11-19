@@ -7,6 +7,9 @@ export default function Listas() {
     const [listas, setListas]= useState([])
     const [nombre, setNombre]= useState('')
 
+
+    // esta funcion lo que permite es agregar 
+
     const  agregar = (e)=>{
         e.preventDefault();
 
@@ -15,7 +18,11 @@ export default function Listas() {
         setListas([...listas, nombre])
         setNombre("")
     }
+    // ahora se realiza la funcion de eliminar los elementos
 
+    const eliminar = (index) =>{
+        setListas(listas.filter((_,i)=> i !== index))
+    }
 
   return (
     <div>
@@ -46,6 +53,7 @@ export default function Listas() {
             <li key={index}>
 
                 {item}
+                <button onClick={()=>eliminar(index)}>Eliminar</button>
 
             </li>
         ))
