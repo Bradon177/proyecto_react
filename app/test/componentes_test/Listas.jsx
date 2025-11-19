@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 export default function Listas() {
 
-    //Zambrano Gay
+    
 
     const [listas, setListas]= useState([])
     const [nombre, setNombre]= useState('')
