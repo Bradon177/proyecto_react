@@ -1,8 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Footer from "./Footer";
+import { useRouter } from "next/navigation";
+
 
 export default function Layout({ children }) {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
@@ -17,13 +20,17 @@ export default function Layout({ children }) {
             </div>
 
             <div className="hidden md:flex items-center gap-8">
-              <a href="inicio" className="text-gray-600 hover:text-cyan-600 transition-colors">Inicio</a>
-              <a href="servicios" className="text-gray-600 hover:text-cyan-600 transition-colors">Servicios</a>
-              <a href="contacto" className="text-gray-600 hover:text-cyan-600 transition-colors">Contacto</a>
+              <a
+              onClick={()=>router.replace("inicio")} 
+              className="text-gray-600 hover:text-cyan-600 transition-colors">Inicio</a>
+              <a  onClick={()=>router.replace("servicios")} className="text-gray-600 hover:text-cyan-600 transition-colors">Servicios</a>
+              <a onClick={()=>router.replace("contacto")} className="text-gray-600 hover:text-cyan-600 transition-colors">Contacto</a>
             </div>
 
             <div className="hidden md:flex items-center gap-3">
-              <button className="px-4 py-2 text-gray-600 border rounded-lg hover:bg-gray-100 transition">
+              <button
+              onClick={()=>router.replace("/Pages/login")} 
+              className="px-4 py-2 text-gray-600 border rounded-lg hover:bg-gray-100 transition">
                 Iniciar Sesión
               </button>
 

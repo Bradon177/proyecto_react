@@ -7,15 +7,15 @@ export default function Page() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [show, setShow]= useState(false)
+  const [show, setShow] = useState(false)
 
 
-  const handleGoogle = () => {};
+  const handleGoogle = () => { };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       <form className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
-      
+
         <div className="text-center space-y-2">
           <h2 className="text-2xl font-semibold text-gray-900">Iniciar sesión</h2>
           <p className="text-gray-600">Ingresa tus datos para continuar</p>
@@ -54,26 +54,31 @@ export default function Page() {
           </div>
         </div>
 
-        <button type="submit" className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-md transition">
+        <button type="submit"
+          onClick={(e) => {
+            e.preventDefault(); // Evita recargar la página
+            router.replace("/dashboard/inicio");
+          }}
+          className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-md transition">
           Entrar
         </button>
-          <button
+        <button
           type="button"
           onClick={handleGoogle}
           className="w-full h-11 border border-gray-300 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="h-5 w-5">
-            <path fill="#FFC107" d="M43.6 20.5H42v-.1H24v7.2h11.3C33.7 31.6 29.2 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 6 .9 8.3 3l5.1-5.1C33.9 6 29.2 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c10.7 0 19.6-7.7 19.6-20 0-1.2-.1-2.3-.4-3.5z"/>
-            <path fill="#FF3D00" d="M6.3 14.7l5.9 4.3C13.4 16.3 18.3 13 24 13c3.1 0 6 .9 8.3 3l5.1-5.1C33.9 6 29.2 4 24 4 15.5 4 8.4 8.5 6.3 14.7z"/>
-            <path fill="#4CAF50" d="M24 44c5.1 0 9.8-1.9 13.3-5.1l-6.1-5c-2 1.4-4.7 2.3-7.2 2.3-5.2 0-9.6-3.3-11.2-7.9l-6 4.6C8.8 39.5 15.9 44 24 44z"/>
-            <path fill="#1976D2" d="M43.6 20.5H42v-.1H24v7.2h11.3c-1.3 4-5.2 7.4-11.3 7.4-5.2 0-9.6-3.3-11.2-7.9l-6 4.6C8.8 39.5 15.9 44 24 44c10.7 0 19.6-7.7 19.6-20 0-1.2-.1-2.3-.4-3.5z"/>
+            <path fill="#FFC107" d="M43.6 20.5H42v-.1H24v7.2h11.3C33.7 31.6 29.2 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 6 .9 8.3 3l5.1-5.1C33.9 6 29.2 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c10.7 0 19.6-7.7 19.6-20 0-1.2-.1-2.3-.4-3.5z" />
+            <path fill="#FF3D00" d="M6.3 14.7l5.9 4.3C13.4 16.3 18.3 13 24 13c3.1 0 6 .9 8.3 3l5.1-5.1C33.9 6 29.2 4 24 4 15.5 4 8.4 8.5 6.3 14.7z" />
+            <path fill="#4CAF50" d="M24 44c5.1 0 9.8-1.9 13.3-5.1l-6.1-5c-2 1.4-4.7 2.3-7.2 2.3-5.2 0-9.6-3.3-11.2-7.9l-6 4.6C8.8 39.5 15.9 44 24 44z" />
+            <path fill="#1976D2" d="M43.6 20.5H42v-.1H24v7.2h11.3c-1.3 4-5.2 7.4-11.3 7.4-5.2 0-9.6-3.3-11.2-7.9l-6 4.6C8.8 39.5 15.9 44 24 44c10.7 0 19.6-7.7 19.6-20 0-1.2-.1-2.3-.4-3.5z" />
           </svg>
           <span className="text-gray-800 font-medium">Iniciar con Google</span>
         </button>
 
         <div className="flex items-center justify-between pt-2">
-             <button type="button" onClick={() => router.replace("/Pages/register")} className="text-sm text-gray-700 hover:text-gray-900">
-           No tienes cuenta  registrate
+          <button type="button" onClick={() => router.replace("/Pages/register")} className="text-sm text-gray-700 hover:text-gray-900">
+            No tienes cuenta  registrate
           </button>
           <button type="button" onClick={() => router.replace("/Pages/forgotPage")} className="text-sm text-blue-600 hover:text-blue-700 font-medium">
             ¿Olvidaste tu contraseña?
@@ -82,7 +87,7 @@ export default function Page() {
             Restablecer contraseña
           </button>
 
-            
+
 
         </div>
       </form>
