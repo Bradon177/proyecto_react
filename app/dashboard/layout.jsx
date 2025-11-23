@@ -63,13 +63,13 @@ export default function Layout({ children }) {
                 <a href="#nosotros" className="text-gray-600 hover:text-cyan-600 transition-colors">Nosotros</a>
                 <a href="#contacto" className="text-gray-600 hover:text-cyan-600 transition-colors">Contacto</a>
 
-                <button className="w-full px-4 py-2 border rounded-lg hover:bg-gray-50 transition">
+                <button
+                 onClick={()=>router.replace("/Pages/login")} 
+                className="w-full px-4 py-2 border rounded-lg hover:bg-gray-50 transition">
                   Iniciar Sesión
                 </button>
 
-                <button className="w-full px-4 py-2 rounded-lg text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition">
-                  Comenzar Ahora
-                </button>
+              
               </div>
             </div>
           )}

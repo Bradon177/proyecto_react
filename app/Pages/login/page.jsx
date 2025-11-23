@@ -83,7 +83,7 @@ export default function Page() {
           <button type="button" onClick={() => router.replace("/Pages/forgotPage")} className="text-sm text-blue-600 hover:text-blue-700 font-medium">
             ¿Olvidaste tu contraseña?
           </button>
-          <button type="button" onClick={() => router.replace("/Pages/resetpage")} className="text-sm text-gray-700 hover:text-gray-900">
+          <button type="button" onClick={() => router.replace("/Pages/resetPage")} className="text-sm text-gray-700 hover:text-gray-900">
             Restablecer contraseña
           </button>
 
