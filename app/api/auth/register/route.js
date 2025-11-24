@@ -85,7 +85,8 @@ export async function POST(req) {
 
     }catch(err){
         console.error("Error en register route:", err);
-        return new Response(JSON.stringify({ error: "Error en el servidor" }), { status: 500, headers: { "Content-Type": "application/json" } });
+        const message = err?.message || "Error en el servidor";
+        return new Response(JSON.stringify({ error: message }), { status: 500, headers: { "Content-Type": "application/json" } });
     }
     
 }

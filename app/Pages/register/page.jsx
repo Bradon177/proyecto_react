@@ -41,7 +41,8 @@ export default function Page() {
       router.push("/Pages/login");
     } catch (error) {
       console.error("Error en el registro:", error);
-      alert("Error en el registro. Por favor, intenta de nuevo.");
+      const message = error?.message || error?.data?.error || "Error en el registro. Por favor, intenta de nuevo.";
+      alert(message);
     }
   };
   

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UsersShecema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     nombre: { type: String, required: true, trim: true },
     email: {
@@ -23,5 +23,4 @@ const UsersShecema = new mongoose.Schema(
     timestamps: true,
   }
 );
-//eso es para evitar volver a crear el modelo cuadno se recargue la pagina
-export default mongoose.models.User || mongoose.model("user", UsersShecema);
+export default mongoose.models.user || mongoose.model("user", UserSchema);

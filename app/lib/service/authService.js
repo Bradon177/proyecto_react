@@ -6,6 +6,10 @@ export async function registerUser(data) {
         console.log("Registro exitoso:", response);
         return response;
     } catch (error) {
-        throw error;
+        const message = error?.message || error?.data?.error || "Error en el registro";
+        const wrapped = new Error(message);
+        if (error?.status) wrapped.status = error.status;
+        wrapped.data = error?.data;
+        throw wrapped;
     }
 }

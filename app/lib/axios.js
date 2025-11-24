@@ -7,8 +7,8 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // envia cookies HttpOnly al mismo dominio / CORS si está configurado
-  timeout: 10000, // 10s
+  withCredentials: true,
+  timeout: 20000,
 });
 
 // Request interceptor: añade Authorization si hay token en localStorage
@@ -32,8 +32,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const err = error?.response?.data || { message: error.message || "Error de red" };
-    return Promise.reject(err);
+    const payload = error?.response?.data || {};
+    const message = payload?.error || payload?.message || error?.message || "Error de red";
+    const status = error?.response?.status;
+    const wrapped = new Error(message);
+    if (status) {
+      wrapped.status = status;
+    }
+    wrapped.data = payload;
+    return Promise.reject(wrapped);
   }
 );
 
