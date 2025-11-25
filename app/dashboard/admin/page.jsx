@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Table from "../../componets/secciones/admin/Table";
 
 export default function Page() {
   const router = useRouter();
@@ -34,9 +35,10 @@ export default function Page() {
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-cyan-50 to-white py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <h1 className="text-4xl font-bold mb-6">Panel de Administración</h1>
-        <p className="text-gray-600">Bienvenido</p>
+      <div className="max-w-7xl mx-auto px-6 space-y-6">
+        <h1 className="text-4xl font-bold">Panel de Administración</h1>
+        <p className="text-gray-600">Gestión de usuarios</p>
+        <Table />
       </div>
     </section>
   );

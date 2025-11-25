@@ -10,11 +10,13 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   // Manejo de autenticación
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       setUser(user);
+      setIsAdmin(user.rol === "admin");
     }
   }, []);
 // Manejo de cierre de sesión
@@ -48,6 +50,9 @@ export default function Layout({ children }) {
               className="text-gray-600 hover:text-cyan-600 transition-colors">Inicio</a>
               <a  onClick={()=>router.replace("servicios")} className="text-gray-600 hover:text-cyan-600 transition-colors">Servicios</a>
               <a onClick={()=>router.replace("contacto")} className="text-gray-600 hover:text-cyan-600 transition-colors">Contacto</a>
+              {isAdmin && (
+                <a onClick={()=>router.replace("admin")} className="text-gray-600 hover:text-cyan-600 transition-colors">Admin</a>
+              )}
             </div>
 
             <div className="hidden md:flex items-center gap-3">
