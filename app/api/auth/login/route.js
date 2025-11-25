@@ -52,6 +52,10 @@ export async function POST(req) {
       }
     );
 
+    const maxAge = 7 * 24 * 60 * 60;
+    const secureFlag = process.env.NODE_ENV === "production" ? "; Secure" : "";
+    const cookie = `token=${token}; Path=/; HttpOnly; Max-Age=${maxAge}; SameSite=Strict${secureFlag}`;
+
     return new Response(
       JSON.stringify({
         message: "Login exitoso",
@@ -63,7 +67,7 @@ export async function POST(req) {
           rol: user.rol,
         },
       }),
-      { status: 200 }
+      { status: 200, headers: { "Set-Cookie": cookie, "Content-Type": "application/json" } }
     );
   } catch (err) {
     console.log("Error en login", err);
