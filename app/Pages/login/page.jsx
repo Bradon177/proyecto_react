@@ -82,44 +82,6 @@ export default function Page() {
 
   const handleGoogle = () => {
     try {
-      const runGIS = () => {
-        if (!googleReady || !window.google) {
-          setMessageAlert("Google aún no está listo, intenta de nuevo");
-          return;
-        }
-        const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-        if (!clientId) {
-          setMessageAlert("Falta configurar NEXT_PUBLIC_GOOGLE_CLIENT_ID");
-          return;
-        }
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          context: "signin",
-          use_fedcm_for_prompt: String(process.env.NEXT_PUBLIC_GIS_USE_FEDCM || "true") === "true",
-          callback: async (response) => {
-            const idToken = response?.credential;
-            if (!idToken) {
-              setMessageAlert("No se obtuvo el token de Google");
-              return;
-            }
-            try {
-              const res = await loginWithGoogle(idToken);
-              if (res?.token) {
-                setAuthToken(res.token);
-                try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
-                setMessageCorrect(res?.message || "Inicio de sesión exitoso");
-                router.replace("/dashboard/inicio");
-              } else {
-                setMessageAlert("No se pudo iniciar sesión con Google");
-              }
-            } catch (e) {
-              setMessageAlert(e?.message || "Error al iniciar con Google");
-            }
-          },
-        });
-        window.google.accounts.id.prompt();
-      };
-
       const hasFirebase = Boolean(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
       if (hasFirebase && auth && googleProvider) {
         signInWithPopup(auth, googleProvider)
@@ -141,11 +103,45 @@ export default function Page() {
             }
           })
           .catch(() => {
-            runGIS();
+            setMessageAlert("No se pudo autenticar con Firebase");
           });
         return;
       }
-      runGIS();
+      if (!googleReady || !window.google) {
+        setMessageAlert("Google aún no está listo, intenta de nuevo");
+        return;
+      }
+      const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+      if (!clientId) {
+        setMessageAlert("Falta configurar NEXT_PUBLIC_GOOGLE_CLIENT_ID");
+        return;
+      }
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        context: "signin",
+        use_fedcm_for_prompt: false,
+        callback: async (response) => {
+          const idToken = response?.credential;
+          if (!idToken) {
+            setMessageAlert("No se obtuvo el token de Google");
+            return;
+          }
+          try {
+            const res = await loginWithGoogle(idToken);
+            if (res?.token) {
+              setAuthToken(res.token);
+              try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
+              setMessageCorrect(res?.message || "Inicio de sesión exitoso");
+              router.replace("/dashboard/inicio");
+            } else {
+              setMessageAlert("No se pudo iniciar sesión con Google");
+            }
+          } catch (e) {
+            setMessageAlert(e?.message || "Error al iniciar con Google");
+          }
+        },
+      });
+      window.google.accounts.id.prompt();
     } catch (e) {
       setMessageAlert("Error al inicializar Google");
     }

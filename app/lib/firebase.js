@@ -10,17 +10,7 @@ const config = {
 
 let authInst = null;
 let providerInst = null;
-const isPlaceholder = (v) => typeof v === "string" && v.toUpperCase().includes("YOUR_");
-if (
-  config.apiKey &&
-  config.authDomain &&
-  config.projectId &&
-  config.appId &&
-  !isPlaceholder(config.apiKey) &&
-  !isPlaceholder(config.authDomain) &&
-  !isPlaceholder(config.projectId) &&
-  !isPlaceholder(config.appId)
-) {
+if (config.apiKey && config.authDomain && config.projectId && config.appId) {
   const app = getApps().length ? getApps()[0] : initializeApp(config);
   authInst = getAuth(app);
   providerInst = new GoogleAuthProvider();
