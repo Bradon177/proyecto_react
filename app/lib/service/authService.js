@@ -43,3 +43,16 @@ export async function logoutUser() {
         throw wrapped;
     }
 }
+
+export async function loginWithGoogle(idToken) {
+    try {
+        const response = await api.post("/auth/google", { id_token: idToken });
+        return response;
+    } catch (error) {
+        const message = error?.message || error?.data?.error || "Error al iniciar con Google";
+        const wrapped = new Error(message);
+        if (error?.status) wrapped.status = error.status;
+        wrapped.data = error?.data;
+        throw wrapped;
+    }
+}

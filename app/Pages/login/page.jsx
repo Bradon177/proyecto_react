@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
-import { loginUser } from "../../lib/service/authService";
+import { loginUser, loginWithGoogle } from "../../lib/service/authService";
 import { setAuthToken } from "../../lib/axios";
+import { auth, googleProvider } from "../../lib/firebase";
+import { signInWithPopup } from "firebase/auth";
 
 export default function Page() {
   const router = useRouter();
@@ -13,6 +15,7 @@ export default function Page() {
   const [messageAlert, setMessageAlert] = useState("");
   const [messageCorrect, setMessageCorrect] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleReady, setGoogleReady] = useState(false);
 // Manejo de mensajes de error y éxito
   useEffect(() => {
     if (messageCorrect) {
@@ -37,6 +40,17 @@ export default function Page() {
       }
     } catch {}
   }, [router]);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => setGoogleReady(true);
+    document.body.appendChild(script);
+    return () => {
+      try { document.body.removeChild(script); } catch {}
+    };
+  }, []);
   
 
 // Manejo del envío del formulario
@@ -66,7 +80,76 @@ export default function Page() {
   };
 
 
-  const handleGoogle = () => { };
+  const handleGoogle = () => {
+    try {
+      const runGIS = () => {
+        if (!googleReady || !window.google) {
+          setMessageAlert("Google aún no está listo, intenta de nuevo");
+          return;
+        }
+        const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+        if (!clientId) {
+          setMessageAlert("Falta configurar NEXT_PUBLIC_GOOGLE_CLIENT_ID");
+          return;
+        }
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          context: "signin",
+          use_fedcm_for_prompt: String(process.env.NEXT_PUBLIC_GIS_USE_FEDCM || "true") === "true",
+          callback: async (response) => {
+            const idToken = response?.credential;
+            if (!idToken) {
+              setMessageAlert("No se obtuvo el token de Google");
+              return;
+            }
+            try {
+              const res = await loginWithGoogle(idToken);
+              if (res?.token) {
+                setAuthToken(res.token);
+                try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
+                setMessageCorrect(res?.message || "Inicio de sesión exitoso");
+                router.replace("/dashboard/inicio");
+              } else {
+                setMessageAlert("No se pudo iniciar sesión con Google");
+              }
+            } catch (e) {
+              setMessageAlert(e?.message || "Error al iniciar con Google");
+            }
+          },
+        });
+        window.google.accounts.id.prompt();
+      };
+
+      const hasFirebase = Boolean(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+      if (hasFirebase && auth && googleProvider) {
+        signInWithPopup(auth, googleProvider)
+          .then(async (result) => {
+            const user = result.user;
+            const idToken = await user.getIdToken();
+            try {
+              const res = await loginWithGoogle(idToken);
+              if (res?.token) {
+                setAuthToken(res.token);
+                try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
+                setMessageCorrect(res?.message || "Inicio de sesión exitoso");
+                router.replace("/dashboard/inicio");
+              } else {
+                setMessageAlert("No se pudo iniciar sesión con Google");
+              }
+            } catch (e) {
+              setMessageAlert(e?.message || "Error al iniciar con Google");
+            }
+          })
+          .catch(() => {
+            runGIS();
+          });
+        return;
+      }
+      runGIS();
+    } catch (e) {
+      setMessageAlert("Error al inicializar Google");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
