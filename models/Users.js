@@ -10,12 +10,11 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    identificacion: { type: String, required: true, unique: true },
-    fechaNacimiento: {
-      type: Date,
-      required: true,
-    },
-    password: { type: String, required: true, minlength: 6 },
+    identificacion: { type: String, unique: true, required: function() { return this.provider === "local"; } },
+    fechaNacimiento: { type: Date, required: function() { return this.provider === "local"; } },
+    password: { type: String, minlength: 6, required: function() { return this.provider === "local"; } },
+    provider: { type: String, enum: ["local", "google"], default: "local" },
+    googleId: { type: String },
     rol: { type: String, enum: ["user", "admin"], default: "user" },
   },
   {

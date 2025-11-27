@@ -50,9 +50,16 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: "Email no disponible en el token" }), { status: 400 });
     }
 
-    const user = await Users.findOne({ email });
+    let user = await Users.findOne({ email });
     if (!user) {
-      return new Response(JSON.stringify({ error: "Usuario no registrado" }), { status: 404 });
+      const googleId = payload?.sub || undefined;
+      user = await Users.create({
+        nombre: name || "",
+        email,
+        provider: "google",
+        googleId,
+        rol: "user",
+      });
     }
 
     if (!process.env.JWT_SECRET) {
