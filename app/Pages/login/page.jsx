@@ -97,6 +97,7 @@ export default function Page() {
             try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
             setMessageCorrect(res?.message || "Inicio de sesión exitoso");
             router.replace("/dashboard/inicio");
+            setLoading(false);
             return;
           } else {
             setMessageAlert("No se pudo iniciar sesión con Google");
@@ -108,11 +109,13 @@ export default function Page() {
       }
       if (!googleReady || !window.google) {
         setMessageAlert("Google aún no está listo, intenta de nuevo");
+        setLoading(false);
         return;
       }
       const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
       if (!clientId) {
         setMessageAlert("Falta configurar NEXT_PUBLIC_GOOGLE_CLIENT_ID");
+        setLoading(false);
         return;
       }
       window.google.accounts.id.initialize({
@@ -146,10 +149,9 @@ export default function Page() {
       window.google.accounts.id.prompt();
     } catch (e) {
       setMessageAlert(e?.message || "Error al iniciar con Google");
+      setLoading(false);
     } finally {
-      if (!(window.google && window.google.accounts && window.google.accounts.id)) {
-        setLoading(false);
-      }
+      setLoading(false);
     }
   };
 
