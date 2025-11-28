@@ -85,20 +85,26 @@ export default function Page() {
     setLoading(true);
     try {
       const hasFirebase = Boolean(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+      const useFedCM = String(process.env.NEXT_PUBLIC_GIS_USE_FEDCM || "false").toLowerCase() === "true";
       if (hasFirebase && auth && googleProvider) {
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-        const idToken = await user.getIdToken();
-        const res = await loginWithGoogle(idToken);
-        if (res?.token) {
-          setAuthToken(res.token);
-          try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
-          setMessageCorrect(res?.message || "Inicio de sesión exitoso");
-          router.replace("/dashboard/inicio");
-        } else {
-          setMessageAlert("No se pudo iniciar sesión con Google");
+        try {
+          const result = await signInWithPopup(auth, googleProvider);
+          const user = result.user;
+          const idToken = await user.getIdToken();
+          const res = await loginWithGoogle(idToken);
+          if (res?.token) {
+            setAuthToken(res.token);
+            try { localStorage.setItem("user", JSON.stringify(res.user)); } catch {}
+            setMessageCorrect(res?.message || "Inicio de sesión exitoso");
+            router.replace("/dashboard/inicio");
+            return;
+          } else {
+            setMessageAlert("No se pudo iniciar sesión con Google");
+          }
+        } catch (err) {
+          setMessageAlert("No se pudo autenticar con Firebase, intentando método alternativo");
+          // continúa al fallback GIS
         }
-        return;
       }
       if (!googleReady || !window.google) {
         setMessageAlert("Google aún no está listo, intenta de nuevo");
@@ -112,7 +118,7 @@ export default function Page() {
       window.google.accounts.id.initialize({
         client_id: clientId,
         context: "signin",
-        use_fedcm_for_prompt: false,
+        use_fedcm_for_prompt: useFedCM,
         callback: async (response) => {
           const idToken = response?.credential;
           if (!idToken) {
@@ -139,7 +145,7 @@ export default function Page() {
       });
       window.google.accounts.id.prompt();
     } catch (e) {
-      setMessageAlert("No se pudo autenticar con Firebase");
+      setMessageAlert(e?.message || "Error al iniciar con Google");
     } finally {
       if (!(window.google && window.google.accounts && window.google.accounts.id)) {
         setLoading(false);
